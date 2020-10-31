@@ -2,57 +2,35 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signUp } from '../../store/actions/authActions'
-import firebase from 'firebase'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-
+import { Link } from 'react-router-dom'
 
 class SignUp extends Component {
-    state = {
+  state = {
         email: '',
         password: '',
         firstName: '',
         lastName: '',
-        isSignedIn: false
-    }
-    
-    uiConfig = {
-        signInFlow: "popup",
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          //firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        callbacks: {
-          signInSuccess: () => false
-        }
+        initials: ''
     }
 
-    componentDidMount = () => {
-        firebase.auth().onAuthStateChanged(user => {
-          this.setState({ isSignedIn: !!user })
-          console.log("user", user)
-        })
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.signUp(this.state);
     }
-    
-    
+
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
         })
     }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.signUp(this.state)
-    }
-
     render() {
         const { auth, authError } = this.props;
-        if (auth.uid) return <Redirect to='/' />
+        if (auth.uid) return <Redirect to='/' />  
+
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
-                    <h5 className="grey-text text-darken-3">Sign Up</h5>
+                    <h5 className="black-text text-lighten-4">Sign Up</h5>
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
                         <input type="text" id="firstName" onChange={this.handleChange}/>
@@ -69,20 +47,19 @@ class SignUp extends Component {
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" onChange={this.handleChange}/>
                     </div>
-                    <div className="input-field">
+                    <div className="input-field center">
                         <button className="btn orange lighten-1 z-depth-0">Sign Up</button>
-                            <StyledFirebaseAuth
-                                uiConfig={this.uiConfig}
-                                firebaseAuth={firebase.auth()}
-                            />
                         <div className="red-text center">
-                            { authError ? <p>{ authError }</p> : null}
+                            { authError ?  <p>{ authError }</p> : null}
                         </div>
+                    </div>
+                    <div className="input-field center">
+                        <Link to='/signin/'>Already have an account ?</Link>
                     </div>
                 </form>
             </div>
-        )
-    }
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -94,7 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        signUp: (newUser) => dispatch(signUp(newUser))
+        signUp: (newUser) => dispatch(signUp(newUser)) 
     }
 }
 

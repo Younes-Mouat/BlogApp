@@ -2,19 +2,19 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
-var config = {
-    apiKey : " AIzaSyDMHokr26vOaJOP73NKoSoqYbZ4VCHN5hk " ,
-    authDomain :"mouatamir-younes-blogapp.firebaseapp.com" , 
-    databaseURL : "https://mouatamir-younes-blogapp.firebaseio.com" ,
-    projectId : "mouatamir-younes-blogapp" ,
-    storageBucket : "mouatamir-younes-blogapp.appspot.com" ,
-    messagingSenderId : " 1039892191821 " ,
-    appId : " 1: 1039892191821: web: d9a70e1aa6d75afbe4da04 " ,
-    measurementId : " G-E7JZTB0N3Y " ,
-    userProfile: "users"
+
+var fbConfig = {
+    apiKey: "AIzaSyATHXwS9-HXlBAXMNmLInMe7r8p9wBJGBo",
+    authDomain: "mouatamir-younes-chatroom.firebaseapp.com",
+    databaseURL: "https://mouatamir-younes-chatroom.firebaseio.com",
+    projectId: "mouatamir-younes-chatroom",
+    storageBucket: "mouatamir-younes-chatroom.appspot.com",
+    messagingSenderId: "582703011973",
+    appId: "1:582703011973:web:4b4a701a5811f61a7171ec"
 };
 
-firebase.initializeApp(config); 
-//firebase.firestore().settings({ timestampsInSnapshots: true });
+// Initialize Firebase
+firebase.initializeApp(fbConfig);
+//firebase.firestore().settings({timestampsInSnapshots: true});
 
-export default firebase;
+export default fbConfig
