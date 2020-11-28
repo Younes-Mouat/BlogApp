@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Younes-Mouat/Chat-Room.git/static/css/main.2d74eb30.chunk.css",
-    "main.js": "/Younes-Mouat/Chat-Room.git/static/js/main.612cf23e.chunk.js",
-    "main.js.map": "/Younes-Mouat/Chat-Room.git/static/js/main.612cf23e.chunk.js.map",
-    "runtime-main.js": "/Younes-Mouat/Chat-Room.git/static/js/runtime-main.4c80c3fd.js",
-    "runtime-main.js.map": "/Younes-Mouat/Chat-Room.git/static/js/runtime-main.4c80c3fd.js.map",
-    "static/js/2.9c3e958e.chunk.js": "/Younes-Mouat/Chat-Room.git/static/js/2.9c3e958e.chunk.js",
-    "static/js/2.9c3e958e.chunk.js.map": "/Younes-Mouat/Chat-Room.git/static/js/2.9c3e958e.chunk.js.map",
-    "index.html": "/Younes-Mouat/Chat-Room.git/index.html",
-    "precache-manifest.b2b11d407bfcce3dc5384f23b15fc38b.js": "/Younes-Mouat/Chat-Room.git/precache-manifest.b2b11d407bfcce3dc5384f23b15fc38b.js",
-    "service-worker.js": "/Younes-Mouat/Chat-Room.git/service-worker.js",
-    "static/css/main.2d74eb30.chunk.css.map": "/Younes-Mouat/Chat-Room.git/static/css/main.2d74eb30.chunk.css.map",
-    "static/js/2.9c3e958e.chunk.js.LICENSE.txt": "/Younes-Mouat/Chat-Room.git/static/js/2.9c3e958e.chunk.js.LICENSE.txt"
+    "main.css": "/Younes-Mouat/Chat-Room/static/css/main.2d74eb30.chunk.css",
+    "main.js": "/Younes-Mouat/Chat-Room/static/js/main.c57de201.chunk.js",
+    "main.js.map": "/Younes-Mouat/Chat-Room/static/js/main.c57de201.chunk.js.map",
+    "runtime-main.js": "/Younes-Mouat/Chat-Room/static/js/runtime-main.41a1037e.js",
+    "runtime-main.js.map": "/Younes-Mouat/Chat-Room/static/js/runtime-main.41a1037e.js.map",
+    "static/js/2.7c31701e.chunk.js": "/Younes-Mouat/Chat-Room/static/js/2.7c31701e.chunk.js",
+    "static/js/2.7c31701e.chunk.js.map": "/Younes-Mouat/Chat-Room/static/js/2.7c31701e.chunk.js.map",
+    "index.html": "/Younes-Mouat/Chat-Room/index.html",
+    "precache-manifest.ec066a70754c57575b95362b83226100.js": "/Younes-Mouat/Chat-Room/precache-manifest.ec066a70754c57575b95362b83226100.js",
+    "service-worker.js": "/Younes-Mouat/Chat-Room/service-worker.js",
+    "static/css/main.2d74eb30.chunk.css.map": "/Younes-Mouat/Chat-Room/static/css/main.2d74eb30.chunk.css.map",
+    "static/js/2.7c31701e.chunk.js.LICENSE.txt": "/Younes-Mouat/Chat-Room/static/js/2.7c31701e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.4c80c3fd.js",
-    "static/js/2.9c3e958e.chunk.js",
+    "static/js/runtime-main.41a1037e.js",
+    "static/js/2.7c31701e.chunk.js",
     "static/css/main.2d74eb30.chunk.css",
-    "static/js/main.612cf23e.chunk.js"
+    "static/js/main.c57de201.chunk.js"
   ]
 }
