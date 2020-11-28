@@ -6,7 +6,7 @@ const Notifications = (props) => {
 const user = firebase.auth().currentUser;
 
 
-if (user) {
+/*if (user) {
   // User is signed in.
   const name = user.displayName;
     return(
@@ -25,7 +25,7 @@ if (user) {
             </div>
     )
 
-} else {
+} else {*/
   // No user is signed in.
   return(
     <div className="section">
@@ -42,6 +42,6 @@ if (user) {
 
 }
     
-} 
+//} 
 
 export default Notifications

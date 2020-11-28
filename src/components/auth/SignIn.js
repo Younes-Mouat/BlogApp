@@ -2,11 +2,32 @@ import React, { Component } from 'react'
 import { signIn } from '../../store/actions/authActions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import firebase from 'firebase'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 class SignIn extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        isSignedIn: false
+    }
+
+    uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          //firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        callbacks: {
+          signInSuccess: () => false
+        }
+    }
+
+    componentDidMount = () => {
+        firebase.auth().onAuthStateChanged(user => {
+          this.setState({ isSignedIn: !!user })
+        })
     }
 
     handleSubmit = (e) => {
@@ -38,6 +59,10 @@ class SignIn extends Component {
             </div>
             <div className="input-field center">
                 <button className="btn orange lighten-1 z-depth-0">Login</button>
+                <StyledFirebaseAuth
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
+                            />
                 <div className="red-text center">
                     { authError ? <p>{ authError }</p> : null }
                 </div>

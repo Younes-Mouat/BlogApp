@@ -20,6 +20,12 @@ const messageReducer = (state = initState, action) => {
         case 'ADD_DETAIL_ERROR':
             console.log('error adding detail',action.err);
             return state;
+        case 'DELETE_MESSAGE':
+            console.log('delete event', action.payload);
+            return state;
+        case 'DELETE_MESSAGE_ERROR':
+            console.log('delete event error', action.payload);
+            return state;
         default:
             return state;
     }

@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signUp } from '../../store/actions/authActions'
 import { Link } from 'react-router-dom'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import firebase from 'firebase'
 
 class SignUp extends Component {
   state = {
@@ -10,7 +12,27 @@ class SignUp extends Component {
         password: '',
         firstName: '',
         lastName: '',
-        initials: ''
+        initials: '',
+        isSignedIn: false
+    }
+
+    uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          //firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        callbacks: {
+          signInSuccess: () => false
+        }
+    }
+
+    componentDidMount = () => {
+        firebase.auth().onAuthStateChanged(user => {
+          this.setState({ isSignedIn: !!user })
+          console.log("user", user)
+        })
     }
 
     handleSubmit = (e) => {
@@ -49,6 +71,10 @@ class SignUp extends Component {
                     </div>
                     <div className="input-field center">
                         <button className="btn orange lighten-1 z-depth-0">Sign Up</button>
+                        <StyledFirebaseAuth
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
+                            />
                         <div className="red-text center">
                             { authError ?  <p>{ authError }</p> : null}
                         </div>

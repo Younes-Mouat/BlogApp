@@ -1,13 +1,7 @@
-const firebase = require('firebase/app')
 const functions = require('firebase-functions');
-const Firestore = require('@google-cloud/firestore');
-const firestore = new Firestore();
-const firestoreDb = firebase.firestore();
-const oldRealTimeDb = firebase.database();
-const usersRef = firestoreDb.collection('users'); // Get a reference to the Users collection;
-const onlineRef = oldRealTimeDb.ref('.info/connected'); // Get a reference to the list of connections
 const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+
+admin.initializeApp(functions.config().firebase)
 
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
@@ -15,19 +9,19 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     response.send("Hello fellas !!");
 });
 
-const createNotification = (notification => {
+const createNotification = (notification) => {
     return admin.firestore().collection('notifications')
-        .add(notification)
-        .then(doc => console.log('notification is added', doc));
-})
+      .add(notification)
+      .then(doc => console.log('notification added', doc))
+}
 
 exports.messageAdded = functions.firestore
-    .document('messages/{messageId}')
+    .document('rooms/{roomId}/messages/{messageId}')
     .onCreate(doc => {
 
         const message = doc.data();
         const notification = {
-           content: 'sent you a message !', 
+           content: 'sent you a message to ' + `${message.Friend_Fullname}` + ' !', 
            user: `${message.friendFirstName} ${message.friendLastName}`,
            time: admin.firestore.FieldValue.serverTimestamp()
         }
@@ -38,12 +32,12 @@ exports.messageAdded = functions.firestore
 exports.userOnline = functions.auth.user()
     .onCreate(user => {
 
-        return admin.firestore().collection(`users`)
+        return admin.firestore().collection('users')
             .doc(user.uid).get().then(doc => {
 
                 const newUser = doc.data();
                 const notification = {
-                    content: `Joined the Chat Room`,
+                    content: 'Joined the Chat Room',
                     user: `${newUser.firstName} ${newUser.lastName}`,
                     time: admin.firestore.FieldValue.serverTimestamp()
                 }
@@ -53,7 +47,7 @@ exports.userOnline = functions.auth.user()
     });
 
     
-exports.onUserStatusChanged = functions.database
+/*exports.onUserStatusChanged = functions.database
     .ref('/status/{userId}') // Reference to the Firebase RealTime database key
     .onUpdate(event => {
     const usersRef = firestore.collection('/users'); // Create a reference to the Firestore Collection
@@ -71,10 +65,10 @@ exports.onUserStatusChanged = functions.database
                 }, { merge: true });
             }
         })
-    });
+    });*/
 
     
-onlineRef.on('value', snapshot => {
+/*onlineRef.on('value', snapshot => {
     // Set the Firestore User's online status to true
     usersRef
         .doc(userId)
@@ -107,4 +101,4 @@ onlineRef.on('value', snapshot => {
           oldRealTimeDb.ref(`/status/${userId}`).set('online');
       });
     
-  });
+  });*/

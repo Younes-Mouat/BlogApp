@@ -11,24 +11,40 @@ import { Redirect } from 'react-router-dom'
 class Dashboard extends Component {
     render(){
 
-        const { messages, auth, notifications } = this.props;
+        const { messages, auth, notifications, requested } = this.props;
         if (!auth.uid) return <Redirect to='/signin'/>
         
-        return(
-            <div className="dashboard container">
-                <div className="row">
-                    <div className="col s12 m5">
-                        <FriendsList messages={messages}/>
-                    </div>
-                    <div className="col s12 m6 offset-m1">
-                        <ShowMessages notifications={notifications}/>
-                    </div>
-                    <div className="col s12 m5 offset-m2">
-                        <Notifications />
+        if (messages) {
+            return(
+                <div className="dashboard container">
+                    <div className="row">
+                        <div className="col s12 m5">
+                            <FriendsList messages={messages} requested={requested} />
+                        </div>
+                        <div className="col s12 m6">
+                            <ShowMessages notifications={notifications}/>
+                        </div>
+                        <div className="col s12 m5 offset-m2">
+                            <Notifications />
+                        </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return(
+                <div className="dashboard container">
+                    <div className="row right">
+                        <div className="col s12 m5">
+                            <ShowMessages notifications={notifications}/>
+                        </div>
+                        <div className="col s12 m5">
+                            <Notifications />
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        
     }
 }
 
@@ -40,16 +56,12 @@ const mapStateToProps = (state) => {
         userId = UId;
     }
 
-    /*const msgs = state.firestore.ordered.messages;
-    const length2 = msgs ? state.firestore.ordered.messages.length : null;
-    const friendname = msgs ? msgs[length2 - 1].Friend_Fullname : null;*/
-
     return{
         messages: state.firestore.ordered.messages,
         auth: state.firebase.auth,
         notifications: state.firestore.ordered.notifications,
         userId: userId,
-        //friendname: friendname
+        requested: state.firestore.status.requested.messages
     }   
 }
 

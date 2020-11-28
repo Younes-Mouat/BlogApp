@@ -1,47 +1,66 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addDetails } from '../../store/actions/messageAction'
+import { addDetails } from '../../store/actions/detailAction'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { Redirect } from 'react-router-dom'
 import MessagesList from './MessagesList'
+import { deleteFriendMessage } from '../../store/actions/messageAction'
+import { deleteFriendDetails } from '../../store/actions/messageAction'
 
 
 class Messages extends Component {
 
     state = {
         message: '',
-        Friend_Fullname: ''
+        Friend_Fullname: '',
+        secondmessage: '',
+        friendId: '',
+        New_message: false
     }
     
     handleSubmit = (e) => {
-        e.preventDefault()
-        this.props.addDetails(this.state)
-        this.props.history.push('/');
+        e.preventDefault();
+        this.props.addDetails(this.state);
+        //this.props.history.push('/');
     }
 
     handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
-        })
+        this.state.message = e.target.value;
+    }
+
+    handleDelete = (e) => {
+        const { id } = this.props; 
+        e.preventDefault();
+        this.props.deleteFriendMessage(id);
+        this.props.deleteFriendDetails(this.state)
+        this.props.history.push('/');
     }
 
     render(){
         
-        const { message, details, auth, friendname } = this.props;
+        const { message, details, auth, friendname, userId } = this.props;
         
         if (!auth.uid) return <Redirect to='/signin' />       
         if (details) {
             this.state.Friend_Fullname = message.Friend_Fullname;
+            this.state.secondmessage = "Say Hi to your new friend ";
+            this.state.friendId = message.friendId;
             
             return (
             <div className="container section messages">
                 <div className="card z-depth-0">
                     <div className="card-content">
+                    <div className="right">
+                        </div>
+                        <button style={{ margin: 20 }} className="btn-floating btn-small
+                         waves-effect waves-light red right" onClick={this.handleDelete}>
+                        <span className="material-icons center">delete_forever</span>
+                    </button>
                         <span className="card-title">{friendname} </span>
                     </div>
                     <div className="card-content">
-                        <MessagesList details = {details} />
+                        <MessagesList details = {details} userId = {userId}/>
                     </div>
                     <div className="card action grey lighten-4 grey-text">
                         <form onSubmit={this.handleSubmit} className="white">
@@ -80,12 +99,11 @@ const mapStateToProps = (state, ownProps) => {
     } else {
         userId = UId;
     }
-    
-    const details = state.firestore.ordered.details;
 
     return {
         message: message,
-        details: details,
+        id: id,
+        details: state.firestore.ordered.details,
         auth: state.firebase.auth,
         userId: userId,
         friendname: friendname
@@ -94,7 +112,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addDetails: (message) => dispatch(addDetails(message))
+        addDetails: (message) => dispatch(addDetails(message)),
+        deleteFriendMessage: (id) => dispatch(deleteFriendMessage(id)),
+        deleteFriendDetails: (message) => dispatch(deleteFriendDetails(message))
     }
 }
 

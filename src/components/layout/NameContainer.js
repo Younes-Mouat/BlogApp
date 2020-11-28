@@ -7,7 +7,7 @@ class NameContainer extends Component {
         return(
             <div>
                 {this.props.users.map(name => <Name name = {name} />)}
-            </div>
+            </div>  
         )
     }
 }
